@@ -34,6 +34,10 @@ class Recette
     #[ORM\JoinColumn(nullable: false)]
     private Collection $mesures;
 
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->methodes = new ArrayCollection();
@@ -138,6 +142,18 @@ class Recette
     public function removeMesure(Mesure $mesure): self
     {
         $this->mesures->removeElement($mesure);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
