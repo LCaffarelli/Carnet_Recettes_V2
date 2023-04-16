@@ -1,16 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ parent() }} | Inscription{% endblock %}
 
 {% block body %}
     <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    {{ form_start(registrationForm.nom) }}
+    <div>
+        <label for="">Nom : </label>
+        {{ form_widget(registrationForm.nom) }}
+        {{ form_errors(registrationForm.nom) }}
+    </div>
+    <div>
+        <label for="">Prénom :</label>
+        {{ form_widget(registrationForm.prenom) }}
+        {{ form_errors(registrationForm.prenom) }}
+    </div>
+    <div>
+        <label for="">Email :</label>
+        {{ form_widget(registrationForm.email) }}
+        {{ form_errors(registrationForm.email) }}
+    </div>
+    <div>
+        <label for="">Date de naissance :</label>
+        {{ form_widget(registrationForm.date_de_naissance) }}
+        {{ form_errors(registrationForm.date_de_naissance) }}
+    </div>
+    <div>
+        <label for="">Adresse :</label>
+        {{ form_widget(registrationForm.adresse) }}
+        {{ form_errors(registrationForm.adresse) }}
+    </div>
+    <div>
+        <label for="">Code Postal :</label>
+        {{ form_widget(registrationForm.code_Postal) }}
+        {{ form_errors(registrationForm.code_Postal) }}
+    </div>
+    <div>
+        <label for="">Ville :</label>
+        {{ form_widget(registrationForm.ville) }}
+        {{ form_errors(registrationForm.ville) }}
+    </div>
+    <div>
+        <label for="">Quels sont tes aliments préférés ? :</label>
+        {{ form_widget(registrationForm.aliments_Prefere) }}
+        {{ form_errors(registrationForm.aliments_Prefere) }}
+    </div>
+    <div>
+        <label for="">Et ceux que tu déteste ? :</label>
+        {{ form_widget(registrationForm.aliment_Deteste) }}
+        {{ form_errors(registrationForm.aliment_Deteste) }}
+    </div>
+    <div>
+        <label for="">Quels sont les plats que tu préfères faire ? :</label>
+        {{ form_widget(registrationForm.preparation_Preferee) }}
+        {{ form_errors(registrationForm.preparation_Preferee) }}
+    </div>
+    <div>
+        <label for="">Pseudo :</label>
+        {{ form_widget(registrationForm.username) }}
+        {{ form_errors(registrationForm.username) }}
+    </div>
+    <div>
+        <label for="">Mot de passe :</label>
+        {{ form_widget(registrationForm.plainPassword) }}
+        {{ form_errors(registrationForm.plainPassword) }}
+    </div>
+    <div>
+        <label for="">Photo de profil :</label>
+        {{ form_widget(registrationForm.image) }}
+        {{ form_errors(registrationForm.image) }}
+    </div>
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}

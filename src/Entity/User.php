@@ -59,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $aliment_Deteste = null;
 
+    #[Assert\Regex(pattern: '/^.+\.(jpg|jpeg|png|gif|bmp)$/', message: "Le fichier saisi n'est pas une image")]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 

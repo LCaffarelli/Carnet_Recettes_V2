@@ -4,44 +4,25 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
-use function Sodium\add;
 
-class RegistrationFormType extends AbstractType
+class UpdateProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('username')
-            ->add('nom')
-            ->add('prenom')
-            ->add('date_de_naissance', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text'
-            ])
-            ->add('email', EmailType::class)
-            ->add('adresse')
-            ->add('code_Postal')
-            ->add('ville')
-            ->add('aliments_Prefere')
-            ->add('aliment_Deteste')
-            ->add('preparation_Preferee')
-            ->add('image', FileType::class, ['mapped' => false, 'required' => false, 'constraints' => [new File(['maxSize' => '1024k',
-                'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'], 'mimeTypesMessage' => 'Please upload a valid image'])]])
-            ->add('plainPassword', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe ne correspond pas à sa confirmation.',
                 'first_options' => [
@@ -67,7 +48,22 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Le mot de passe doit contenir obligatoirement une minuscule, une majuscule, un chiffre et un caractère spécial.',
                     ])
                 ]
-            ]);
+            ])
+            ->add('nom')
+            ->add('prenom')
+            ->add('date_de_naissance', DateType::class, [
+                'html5' => true,
+                'widget' => 'single_text'
+            ])
+            ->add('email', EmailType::class)
+            ->add('adresse')
+            ->add('code_Postal')
+            ->add('ville')
+            ->add('aliments_Prefere')
+            ->add('aliment_Deteste')
+            ->add('image', FileType::class, ['mapped' => false, 'required' => false, 'constraints' => [new File(['maxSize' => '1024k',
+                'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'], 'mimeTypesMessage' => 'Please upload a valid image'])]])
+            ->add('preparation_Preferee');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

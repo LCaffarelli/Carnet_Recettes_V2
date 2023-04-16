@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Afficher mon profil
+
+{% endblock %}
+
+{% block body %}
+{{ user.nom }}
+    <div>
+        <img src="{{ asset('img/profil/'~ user.image ) }}" alt="">
+    </div>
+
+{% endblock %}
+
