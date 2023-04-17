@@ -39,8 +39,10 @@ class RegistrationFormType extends AbstractType
             ->add('aliments_Prefere')
             ->add('aliment_Deteste')
             ->add('preparation_Preferee')
+
             ->add('image', FileType::class, ['mapped' => false, 'required' => false, 'constraints' => [new File(['maxSize' => '1024k',
                 'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'], 'mimeTypesMessage' => 'Please upload a valid image'])]])
+
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe ne correspond pas à sa confirmation.',

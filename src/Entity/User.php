@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+//Add manually
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
@@ -60,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $aliment_Deteste = null;
 
     #[Assert\Regex(pattern: '/^.+\.(jpg|jpeg|png|gif|bmp)$/', message: "Le fichier saisi n'est pas une image")]
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
