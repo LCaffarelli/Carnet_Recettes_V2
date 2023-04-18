@@ -5,6 +5,6 @@
 {%block body %}
     <h1>Test</h1>
 <h2>Bonjour {{ user.username }}</h2>
-    <a href="{{ path('user_detailsProfil',{'id' : user.id}) }}"><button>Afficher profil</button></a>
+    <a href="{{ path('user_modifierprofil') }}"><button>Afficher profil</button></a>
     <a href="{{ path('app_logout') }}"><button>Se déconnecter</button></a>
 {% endblock %}

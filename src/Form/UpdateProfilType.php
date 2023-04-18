@@ -22,7 +22,7 @@ class UpdateProfilType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe ne correspond pas à sa confirmation.',
                 'first_options' => [

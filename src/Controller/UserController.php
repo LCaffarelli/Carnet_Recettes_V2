@@ -17,19 +17,17 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/user/', name: 'user_')]
 class UserController extends AbstractController
 {
-//    #[Route('/modifierProfil', name: 'modifProfil')]
-//    public function modificationProfil(): Response
-//    {
-//        return $this->render('user/modifProfil.html.twig', [
-//            'user' => $user,'formUpdate'=>$formUpdate->createView(),
-//        ]);
-//    }
     #[Route('/detailsProfil/{id}', name: 'detailsProfil')]
-    public function detailsProfil(int $id, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, UserRepository $userRepository,): Response
+    public function detailsProfil(int $id, UserRepository $userRepository): Response
     {
-
         $user = $userRepository->find($id);
+        return $this->render('/user/detailsProfil.html.twig', ['user' => $user]);
+    }
 
+    #[Route('modifierProfil', name: 'modifierprofil')]
+    public function modifierProfil(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher,): \Symfony\Component\HttpFoundation\RedirectResponse|Response
+    {
+        $user = $userRepository->find($this->getUser()->getId());
         $formUpdate = $this->createForm(UpdateProfilType::class, $user);
         $formUpdate->handleRequest($request);
 
@@ -54,8 +52,7 @@ class UserController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('main_home');
             }
-
         }
-        return $this->render('/user/detailsProfil.html.twig', ['user' => $user, 'formUpdate' => $formUpdate]);
+        return $this->render('user/modifierProfil.html.twig', ['user' => $user, 'formUpdate' => $formUpdate->createView()]);
     }
 }

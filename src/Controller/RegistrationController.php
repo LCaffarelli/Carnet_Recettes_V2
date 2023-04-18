@@ -18,26 +18,16 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request,SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $img = $form->get('image')->getData();
-            if ($img) {
-                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $img->guessExtension();
-                try {
-                    $img->move($this->getParameter('images_directory'), $newFilename);
-                    $user->setImage($newFilename);
-                } catch (FileException $e) {
-                    //TODO: rajouter message d'erreur
-                }
+            //Set a default imgage for the user's profile
+            $user->setImage("imageDefaut.jpg");
 
-            }
             //Set role to user when user is created
             $user->setRoles(['ROLE_USER']);
 
@@ -49,7 +39,6 @@ class RegistrationController extends AbstractController
                 )
 
             );
-
 
             $entityManager->persist($user);
             $entityManager->flush();
